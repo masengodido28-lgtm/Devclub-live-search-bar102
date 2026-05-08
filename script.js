@@ -1,5 +1,3 @@
-// Data to search from
-
 const items = [
   "HTML Tutorial",
   "CSS Responsive Design",
@@ -12,3 +10,9 @@ const items = [
   "Portfolio Website",
   "CSS Animations"
 ];
+
+// Get HTML elements
+
+const searchInput = document.getElementById("searchInput");
+const results = document.getElementById("results");
+// Data to search from
