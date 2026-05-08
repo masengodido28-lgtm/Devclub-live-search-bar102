@@ -1,3 +1,5 @@
+// Data to search from
+
 const items = [
   "HTML Tutorial",
   "CSS Responsive Design",
@@ -11,63 +13,69 @@ const items = [
   "CSS Animations"
 ];
 
+
 // Get HTML elements
 
 const searchInput = document.getElementById("searchInput");
 const results = document.getElementById("results");
-// Data to search from
 
-function filterItems(input) {
-return items.filter(item =>
-item.toLowerCase().includes(input.toLowerCase())
-);
-}
 
-// Function to display results
-
-function displayResults(filteredItems) {
-
-results.innerHTML = "";
-
-results.style.display = "block";
-
-if (filteredItems.length === 0) {
-results.innerHTML = `
-<div class="no-result">
-No results found
-</div>
-`;
-return;
-}
-
-filteredItems.forEach(item => {
-
-const li = document.createElement("li");
-
-li.textContent = item;
-
-li.addEventListener("click", () => {
-searchInput.value = item;
-results.style.display = "none";
-});
-
-results.appendChild(li);
-});
-  
 // Listen for typing
 
 searchInput.addEventListener("keyup", () => {
 
-const input = searchInput.value;
+  // Get what user typed
+  const input = searchInput.value.toLowerCase();
 
-if (input === "") {
-results.style.display = "none";
-results.innerHTML = "";
-return;
-}
+  // Clear old results
+  results.innerHTML = "";
 
-const filteredItems = filterItems(input);
+  // If input is empty
+  if(input === ""){
+    results.style.display = "none";
+    return;
+  }
 
-displayResults(filteredItems);
+  // Filter matching items
+
+  const filteredItems = items.filter(item =>
+    item.toLowerCase().includes(input)
+  );
+
+  // Show results box
+  results.style.display = "block";
+
+  // If no match found
+
+  if(filteredItems.length === 0){
+
+    results.innerHTML = `
+      <div class="no-result">
+        No results found
+      </div>
+    `;
+  }
+
+  // Show matching items
+
+  filteredItems.forEach(item => {
+
+    const li = document.createElement("li");
+
+    li.textContent = item;
+
+    // Click result to fill input
+
+    li.addEventListener("click", () => {
+
+      searchInput.value = item;
+
+      results.style.display = "none";
+
+    });
+
+    results.appendChild(li);
+
+  });
 
 });
