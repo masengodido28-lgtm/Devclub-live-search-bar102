@@ -16,3 +16,9 @@ const items = [
 const searchInput = document.getElementById("searchInput");
 const results = document.getElementById("results");
 // Data to search from
+
+function filterItems(input) {
+return items.filter(item =>
+item.toLowerCase().includes(input.toLowerCase())
+);
+}
